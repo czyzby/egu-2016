@@ -59,7 +59,7 @@ abstract class Pedestrian(val drawableName: String, val dragController: DragCont
     override fun draw(batch: Batch, parentAlpha: Float) {
         sprite.setPosition(x, y)
         sprite.rotation = rotation
-        sprite.draw(batch)
+        sprite.draw(batch, parentAlpha * color.a)
     }
 
     protected fun randomY() = MathUtils.random(10f, 100f)
@@ -74,7 +74,7 @@ abstract class Pedestrian(val drawableName: String, val dragController: DragCont
         addAction(Actions.parallel(
                 Actions.moveTo(targetX, randomY(), MathUtils.random(3f, 6f))
         ) then Actions.run {
-            dragController.decrementPoints()
+            dragController.decrementPoints(run = true)
         } then Actions.removeActor())
     }
 }
