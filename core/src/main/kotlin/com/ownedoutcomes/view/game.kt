@@ -10,17 +10,21 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.kotcrab.vis.ui.widget.Draggable
 import com.kotcrab.vis.ui.widget.VisImage
-import com.ownedoutcomes.view.entity.Pedestrian
-import com.ownedoutcomes.view.entity.PedestrianType
-import com.ownedoutcomes.view.entity.getRandomPedestrian
+import com.kotcrab.vis.ui.widget.VisLabel
+import com.ownedoutcomes.view.entity.*
+import ktx.actors.alpha
+import ktx.actors.then
 import ktx.assets.getValue
 import ktx.assets.loadOnDemand
 import ktx.math.vec2
@@ -35,6 +39,7 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     val dragController = DragController(this, stage)
     val spawner = Spawner(stage, dragController)
     val handImage = VisImage("hand")
+    val promptLabel = VisLabel("", "title")
     override val root: Actor
     lateinit var urineImage: Image
     lateinit var beerImage: Image
@@ -45,13 +50,13 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
         rayHandler.setAmbientLight(0f, 0f, 0f, 0.1f)
         light.isXray = true
         ConeLight(rayHandler, 15, Color.BLACK, 600f, 600f, 400f, 45f, 45f)  // Bonuses.
-        ConeLight(rayHandler, 15, Color.BLACK, 250f, 300f, 540f, -45f, 45f) // Room light.
+        ConeLight(rayHandler, 15, Color.BLACK, 350f, 300f, 540f, -45f, 45f) // Room light.
         root = table {
             backgroundImage.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             background = TextureRegionDrawable(TextureRegion(backgroundImage, 0, 0, 1000, 750))
             setFillParent(true)
             table {
-                urineImage = image(drawableName = "urine").actor
+                urineImage = image(drawableName = "piss").actor
                 image(drawableName = "beer") {
                     beerImage = this
                 }.row()
@@ -61,6 +66,13 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
         }
         handImage.setPosition(312f, 387f)
         handImage.setOrigin(10f, 70f)
+        resetPrompt()
+    }
+
+    fun resetPrompt() {
+        promptLabel.clearActions()
+        promptLabel.setPosition(380f, 510f)
+        promptLabel.alpha = 0f
     }
 
     val actorsComparator = Comparator<Actor> { o1, o2 ->
@@ -72,6 +84,8 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
             o2 === handImage -> 1
             o1 is Draggable.MimicActor -> 1
             o2 is Draggable.MimicActor -> 1
+            o1 is Label -> 1
+            o2 is Label -> 1
             o1.y < o2.y -> 1
             o1.y == o2.y -> 0
             else -> -1
@@ -100,6 +114,7 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
         stage.addActor(handImage)
         spawner.reset()
         dragController.reset()
+        stage.addActor(promptLabel)
     }
 
     private fun sortActors() {
@@ -132,7 +147,7 @@ class DragController(val game: Game, val stage: Stage) {
     var points = 0
 
     fun reset() {
-        lives = 2
+        lives = 100
     }
 
     fun getDraggable(): Draggable {
@@ -158,6 +173,9 @@ class DragController(val game: Game, val stage: Stage) {
 
     fun checkPedestrian(pedestrian: Pedestrian, pedestrianType: PedestrianType) {
         if (pedestrian.type == pedestrianType) {
+            pedestrian.clearActions()
+            pedestrian.removeListener(pedestrian.listeners.first())
+            pedestrian.addAction(Actions.sequence(Actions.fadeOut(0.2f), Actions.removeActor()))
             incrementPoints()
         } else {
             decrementPoints()
@@ -168,16 +186,31 @@ class DragController(val game: Game, val stage: Stage) {
         lives++
         points++
         println("Points++")
-        // TODO display image!
+        displayPrompt(randomCaughtPrompt())
     }
 
-    fun decrementPoints() {
+    private fun displayPrompt(text: String) {
+        game.resetPrompt()
+        game.promptLabel.setText(text)
+        game.promptLabel.addAction(Actions.parallel(
+                Actions.fadeIn(0.1f),
+                Actions.moveBy(15f, 10f, 0.15f)
+        ) then Actions.delay(0.15f) then Actions.parallel(
+                Actions.fadeOut(0.15f)
+        ))
+    }
+
+    fun decrementPoints(run: Boolean = false) {
         lives--
         println("Points--")
         if (lives == 0) {
             // TODO display dialog, go to menu
         } else if (lives > 0) {
-            // TODO display image
+            if (run) {
+                displayPrompt(randomRunPrompt())
+            } else {
+                displayPrompt(randomMissmatchPrompt())
+            }
         }
     }
 }

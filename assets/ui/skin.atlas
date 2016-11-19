@@ -1,82 +1,96 @@
 
 skin.png
-size: 512,256
+size: 1024,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 beer
   rotate: false
-  xy: 449, 136
-  size: 28, 86
+  xy: 928, 117
+  size: 59, 94
   orig: 100, 100
-  offset: 25, 9
+  offset: 21, 3
   index: -1
 beer0
   rotate: false
-  xy: 189, 113
+  xy: 445, 102
   size: 64, 109
   orig: 128, 128
   offset: 28, 0
   index: -1
 guy0
   rotate: false
-  xy: 254, 113
+  xy: 510, 102
   size: 64, 109
   orig: 128, 128
   offset: 28, 0
   index: -1
 hand
   rotate: false
-  xy: 189, 67
+  xy: 257, 20
   size: 88, 45
   orig: 100, 100
   offset: 2, 31
   index: -1
+piss
+  rotate: false
+  xy: 705, 72
+  size: 67, 63
+  orig: 100, 100
+  offset: 15, 18
+  index: -1
 piss0
   rotate: false
-  xy: 319, 113
+  xy: 575, 102
   size: 64, 109
   orig: 128, 128
   offset: 28, 0
   index: -1
 regular0
   rotate: false
-  xy: 1, 77
+  xy: 257, 66
   size: 102, 145
   orig: 150, 150
   offset: 22, 5
   index: -1
 regular1
   rotate: false
-  xy: 104, 94
+  xy: 360, 83
   size: 84, 128
   orig: 150, 150
   offset: 41, 7
   index: -1
 smoke
   rotate: false
-  xy: 278, 60
-  size: 76, 52
+  xy: 705, 136
+  size: 80, 75
   orig: 100, 100
-  offset: 12, 45
+  offset: 10, 19
+  index: -1
+title
+  rotate: false
+  xy: 1, 1
+  size: 255, 210
+  orig: 256, 256
+  offset: 0, 46
   index: -1
 urine
   rotate: false
-  xy: 1, 1
+  xy: 786, 136
   size: 80, 75
   orig: 100, 100
   offset: 10, 7
   index: -1
 vodka
   rotate: false
-  xy: 478, 136
-  size: 28, 86
+  xy: 867, 120
+  size: 60, 91
   orig: 100, 100
-  offset: 25, 9
+  offset: 20, 6
   index: -1
 vodka0
   rotate: false
-  xy: 384, 113
+  xy: 640, 102
   size: 64, 109
   orig: 128, 128
   offset: 28, 0

@@ -2,6 +2,7 @@ package com.ownedoutcomes
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -17,8 +18,10 @@ import ktx.app.KotlinApplication
 import ktx.app.LetterboxingViewport
 import ktx.assets.Assets
 import ktx.assets.loadOnDemand
+import ktx.assets.toInternalFile
 import ktx.inject.inject
 import ktx.inject.register
+import ktx.style.label
 
 class Main : KotlinApplication() {
     private var view: View = MockView()
@@ -29,6 +32,9 @@ class Main : KotlinApplication() {
         VisUI.load(VisUI.SkinScale.X2)
         val skin = VisUI.getSkin()
         skin.addRegions(loadOnDemand<TextureAtlas>(path ="ui/skin.atlas").asset)
+        skin.label("title") {
+            font = BitmapFont("title.fnt".toInternalFile(), skin.getRegion("title"))
+        }
         val menuView = Menu(stage)
         val gameView = Game(stage, skin, batch)
         val main = this
