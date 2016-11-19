@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="161.8648"
-     inkscape:cy="196.16098"
+     inkscape:zoom="2.8"
+     inkscape:cx="212.4452"
+     inkscape:cy="205.92395"
      inkscape:document-units="px"
      inkscape:current-layer="layer7"
      showgrid="false"
@@ -109,40 +109,9 @@
        rx="5.6509824"
        ry="16.182962"
        transform="matrix(0.90738404,-0.42030252,0.42030252,0.90738404,0,0)" />
-    <ellipse
+    <path
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#f9f9f9;fill-opacity:0.52747256;fill-rule:nonzero;stroke:#6a6a6a;stroke-width:8.55900002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-       id="path5498"
-       cx="243.44676"
-       cy="74.988518"
-       rx="18.687822"
-       ry="18.435284" />
-    <ellipse
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#f9f9f9;fill-opacity:0.52747256;fill-rule:nonzero;stroke:#6a6a6a;stroke-width:8.55900002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-       id="path5500"
-       cx="228.79955"
-       cy="53.270241"
-       rx="13.637059"
-       ry="13.889598" />
-    <ellipse
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#f9f9f9;fill-opacity:0.52747256;fill-rule:nonzero;stroke:#6a6a6a;stroke-width:8.55900002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-       id="path5502"
-       cx="252.53813"
-       cy="54.027855"
-       rx="16.667517"
-       ry="17.67767" />
-    <ellipse
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:#6a6a6a;stroke-width:8.55900002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-       id="path5504"
-       cx="239.65869"
-       cy="35.845108"
-       rx="14.394673"
-       ry="13.637059" />
-    <ellipse
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#f9f9f9;fill-opacity:0.52747256;fill-rule:nonzero;stroke:#6a6a6a;stroke-width:8.55900002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-       id="path5506"
-       cx="219.45564"
-       cy="32.814651"
-       rx="16.920055"
-       ry="14.142136" />
+       d="M 219.45508 18.671875 A 16.920055 14.142136 0 0 0 202.53516 32.814453 A 16.920055 14.142136 0 0 0 216.76172 46.759766 A 13.637059 13.889598 0 0 0 215.16211 53.269531 A 13.637059 13.889598 0 0 0 226.64648 66.96875 A 18.687822 18.435284 0 0 0 224.75977 74.988281 A 18.687822 18.435284 0 0 0 243.44727 93.423828 A 18.687822 18.435284 0 0 0 262.13477 74.988281 A 18.687822 18.435284 0 0 0 261.14648 69.144531 A 16.667517 17.67767 0 0 0 269.20508 54.027344 A 16.667517 17.67767 0 0 0 254.02344 36.429688 A 14.394673 13.637059 0 0 0 254.05273 35.845703 A 14.394673 13.637059 0 0 0 239.6582 22.208984 A 14.394673 13.637059 0 0 0 232.63867 23.957031 A 16.920055 14.142136 0 0 0 219.45508 18.671875 z "
+       id="path5498" />
   </g>
 </svg>
