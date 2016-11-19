@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.kotcrab.vis.ui.widget.Draggable
+import com.kotcrab.vis.ui.widget.VisImage
 import com.ownedoutcomes.view.entity.Pedestrian
 import com.ownedoutcomes.view.entity.PedestrianType
 import com.ownedoutcomes.view.entity.getRandomPedestrian
@@ -33,6 +34,7 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     val lightPosition = vec2()
     val dragController = DragController(this, stage)
     val spawner = Spawner(stage, dragController)
+    val handImage = VisImage("hand")
     override val root: Actor
     lateinit var urineImage: Image
     lateinit var beerImage: Image
@@ -42,9 +44,11 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     init {
         rayHandler.setAmbientLight(0f, 0f, 0f, 0.1f)
         light.isXray = true
-        ConeLight(rayHandler, 15, Color.BLACK, 600f, 600f, 400f, 45f, 45f)
+        ConeLight(rayHandler, 15, Color.BLACK, 600f, 600f, 400f, 45f, 45f)  // Bonuses.
+        ConeLight(rayHandler, 15, Color.BLACK, 250f, 300f, 540f, -45f, 45f) // Room light.
         root = table {
-            background = TextureRegionDrawable(TextureRegion(backgroundImage, 0, 0, 800, 600))
+            backgroundImage.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+            background = TextureRegionDrawable(TextureRegion(backgroundImage, 0, 0, 1000, 750))
             setFillParent(true)
             table {
                 urineImage = image(drawableName = "urine").actor
@@ -55,6 +59,8 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
                 smokeImage = image(drawableName = "smoke").actor
             }.expand().align(Align.topRight)
         }
+        handImage.setPosition(312f, 387f)
+        handImage.setOrigin(10f, 70f)
     }
 
     val actorsComparator = Comparator<Actor> { o1, o2 ->
@@ -62,6 +68,10 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
             o1 === o2 -> 0
             o1 === root -> -1
             o2 === root -> 1
+            o1 === handImage -> -1
+            o2 === handImage -> 1
+            o1 is Draggable.MimicActor -> 1
+            o2 is Draggable.MimicActor -> 1
             o1.y < o2.y -> 1
             o1.y == o2.y -> 0
             else -> -1
@@ -70,6 +80,7 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
 
     override fun render(delta: Float) {
         sortActors()
+        updateHand()
         spawner.update(delta)
         super.render(delta)
         stage.screenToStageCoordinates(lightPosition.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()));
@@ -79,8 +90,14 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
         rayHandler.updateAndRender()
     }
 
+    private fun updateHand() {
+        val angle = MathUtils.atan2(lightPosition.y - handImage.y, lightPosition.x - handImage.x)
+        handImage.rotation = MathUtils.radiansToDegrees * angle
+    }
+
     override fun show() {
         super.show()
+        stage.addActor(handImage)
         spawner.reset()
         dragController.reset()
     }
@@ -95,7 +112,7 @@ class Spawner(val stage: Stage, val dragController: DragController) {
 
     fun update(delta: Float) {
         timeSinceSpawn += delta
-        if (timeSinceSpawn > MathUtils.random(1f, 3f)) {
+        if (timeSinceSpawn > MathUtils.random(2f, 3f)) {
             spawn()
             timeSinceSpawn = 0f
         }
