@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.kotcrab.vis.ui.VisUI
 import com.ownedoutcomes.view.Game
@@ -22,7 +23,7 @@ import ktx.inject.register
 class Main : KotlinApplication() {
     private var view: View = MockView()
     override fun create() {
-        val viewport: Viewport = LetterboxingViewport(targetPpiX = 96f, targetPpiY = 96f, aspectRatio = 4f / 3f)
+        val viewport: Viewport = FitViewport(800f, 600f)
         val batch = SpriteBatch()
         val stage = Stage(viewport, batch)
         VisUI.load(VisUI.SkinScale.X2)

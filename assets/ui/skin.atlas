@@ -1,61 +1,82 @@
 
 skin.png
-size: 512,128
+size: 512,256
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 beer
   rotate: false
-  xy: 419, 24
+  xy: 449, 136
   size: 28, 86
   orig: 100, 100
   offset: 25, 9
   index: -1
 beer0
   rotate: false
-  xy: 1, 1
+  xy: 189, 113
   size: 64, 109
   orig: 128, 128
   offset: 28, 0
   index: -1
 guy0
   rotate: false
-  xy: 66, 1
+  xy: 254, 113
   size: 64, 109
   orig: 128, 128
   offset: 28, 0
+  index: -1
+hand
+  rotate: false
+  xy: 189, 67
+  size: 88, 45
+  orig: 100, 100
+  offset: 2, 31
   index: -1
 piss0
   rotate: false
-  xy: 131, 1
+  xy: 319, 113
   size: 64, 109
   orig: 128, 128
   offset: 28, 0
   index: -1
+regular0
+  rotate: false
+  xy: 1, 77
+  size: 102, 145
+  orig: 150, 150
+  offset: 22, 5
+  index: -1
+regular1
+  rotate: false
+  xy: 104, 94
+  size: 84, 128
+  orig: 150, 150
+  offset: 41, 7
+  index: -1
 smoke
   rotate: false
-  xy: 342, 58
+  xy: 278, 60
   size: 76, 52
   orig: 100, 100
   offset: 12, 45
   index: -1
 urine
   rotate: false
-  xy: 261, 35
+  xy: 1, 1
   size: 80, 75
   orig: 100, 100
   offset: 10, 7
   index: -1
 vodka
   rotate: false
-  xy: 448, 24
+  xy: 478, 136
   size: 28, 86
   orig: 100, 100
   offset: 25, 9
   index: -1
 vodka0
   rotate: false
-  xy: 196, 1
+  xy: 384, 113
   size: 64, 109
   orig: 128, 128
   offset: 28, 0
