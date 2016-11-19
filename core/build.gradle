@@ -1,0 +1,21 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
+
+dependencies {
+  compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+  compile "com.badlogicgames.box2dlights:box2dlights:$box2dlightsVersion"
+  compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+  compile "com.github.czyzby:ktx-app:$ktxVisVersion"
+  compile "com.github.czyzby:ktx-vis:$ktxVisVersion"
+  compile "com.github.czyzby:ktx-log:$ktxLogVersion"
+  compile "com.kotcrab.vis:vis-ui:$visUiVersion"
+  compile "com.github.czyzby:ktx-assets:$ktxAssetsVersion"
+  compile "com.github.czyzby:ktx-collections:$ktxCollectionsVersion"
+  compile "com.github.czyzby:ktx-math:$ktxMathVersion"
+  compile "com.github.czyzby:ktx-i18n:$ktxI18nVersion"
+  compile "com.github.czyzby:ktx-inject:$ktxInjectVersion"
+  compile "com.github.czyzby:ktx-actors:$ktxActorsVersion"
+  compile "com.github.czyzby:ktx-vis-style:$ktxVisStyleVersion"
+}
+        
