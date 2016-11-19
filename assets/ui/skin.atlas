@@ -6,91 +6,140 @@ filter: Linear,Linear
 repeat: none
 beer
   rotate: false
-  xy: 928, 117
+  xy: 257, 12
   size: 59, 94
   orig: 100, 100
   offset: 21, 3
   index: -1
 beer0
   rotate: false
-  xy: 445, 102
-  size: 64, 109
-  orig: 128, 128
-  offset: 28, 0
-  index: -1
-guy0
-  rotate: false
-  xy: 510, 102
+  xy: 538, 1
   size: 64, 109
   orig: 128, 128
   offset: 28, 0
   index: -1
 hand
   rotate: false
-  xy: 257, 20
+  xy: 928, 96
   size: 88, 45
   orig: 100, 100
   offset: 2, 31
   index: -1
 piss
   rotate: false
-  xy: 705, 72
+  xy: 733, 78
   size: 67, 63
   orig: 100, 100
   offset: 15, 18
   index: -1
 piss0
   rotate: false
-  xy: 575, 102
+  xy: 603, 7
   size: 64, 109
   orig: 128, 128
   offset: 28, 0
   index: -1
 regular0
   rotate: false
-  xy: 257, 66
-  size: 102, 145
+  xy: 257, 107
+  size: 106, 146
   orig: 150, 150
-  offset: 22, 5
+  offset: 20, 4
   index: -1
 regular1
   rotate: false
-  xy: 360, 83
-  size: 84, 128
+  xy: 637, 123
+  size: 87, 130
   orig: 150, 150
-  offset: 41, 7
+  offset: 40, 6
+  index: -1
+regular2
+  rotate: false
+  xy: 364, 107
+  size: 98, 146
+  orig: 150, 150
+  offset: 31, 4
+  index: -1
+regular3
+  rotate: false
+  xy: 553, 117
+  size: 83, 136
+  orig: 150, 150
+  offset: 38, 5
+  index: -1
+regular4
+  rotate: false
+  xy: 463, 111
+  size: 89, 142
+  orig: 150, 150
+  offset: 36, 5
+  index: -1
+regular5
+  rotate: false
+  xy: 317, 13
+  size: 78, 93
+  orig: 150, 150
+  offset: 38, 4
   index: -1
 smoke
   rotate: false
-  xy: 705, 136
+  xy: 457, 31
   size: 80, 75
   orig: 100, 100
   offset: 10, 19
   index: -1
+smoke0
+  rotate: false
+  xy: 668, 13
+  size: 64, 109
+  orig: 128, 128
+  offset: 28, 0
+  index: -1
+start-down
+  rotate: false
+  xy: 790, 198
+  size: 194, 55
+  orig: 199, 67
+  offset: 1, 6
+  index: -1
+start-over
+  rotate: false
+  xy: 790, 142
+  size: 194, 55
+  orig: 199, 67
+  offset: 1, 6
+  index: -1
+start-up
+  rotate: false
+  xy: 733, 22
+  size: 194, 55
+  orig: 199, 67
+  offset: 1, 6
+  index: -1
 title
   rotate: false
-  xy: 1, 1
+  xy: 1, 43
   size: 255, 210
   orig: 256, 256
   offset: 0, 46
   index: -1
 urine
   rotate: false
-  xy: 786, 136
-  size: 80, 75
-  orig: 100, 100
-  offset: 10, 7
+  xy: 1, 16
+  size: 59, 26
+  orig: 70, 70
+  offset: 5, 23
   index: -1
 vodka
   rotate: false
-  xy: 867, 120
+  xy: 396, 15
   size: 60, 91
   orig: 100, 100
   offset: 20, 6
   index: -1
 vodka0
   rotate: false
-  xy: 640, 102
+  xy: 725, 144
   size: 64, 109
   orig: 128, 128
   offset: 28, 0

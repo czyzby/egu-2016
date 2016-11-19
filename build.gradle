@@ -44,6 +44,7 @@ tasks.eclipse.doLast {
 import com.badlogic.gdx.tools.texturepacker.TexturePacker
 task pack << {
   render('./raw/icons/', 100)
+  render('./raw/effects/', 70)
   render('./raw/people/', 150)
   // Note that if you need multiple atlases, you can duplicate the
   // TexturePacker.process invocation and change paths to generate

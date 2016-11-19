@@ -4,6 +4,7 @@ import box2dLight.ConeLight
 import box2dLight.PointLight
 import box2dLight.RayHandler
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
@@ -25,7 +26,9 @@ import com.kotcrab.vis.ui.widget.VisLabel
 import com.ownedoutcomes.view.entity.*
 import ktx.actors.alpha
 import ktx.actors.then
+import ktx.assets.asset
 import ktx.assets.getValue
+import ktx.assets.load
 import ktx.assets.loadOnDemand
 import ktx.math.vec2
 import ktx.vis.table
@@ -47,7 +50,6 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     lateinit var smokeImage: Image
 
     init {
-        rayHandler.setAmbientLight(0f, 0f, 0f, 0.1f)
         light.isXray = true
         ConeLight(rayHandler, 15, Color.BLACK, 600f, 600f, 400f, 45f, 45f)  // Bonuses.
         ConeLight(rayHandler, 15, Color.BLACK, 350f, 300f, 540f, -45f, 45f) // Room light.
@@ -86,6 +88,9 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
             o2 is Draggable.MimicActor -> 1
             o1 is Label -> 1
             o2 is Label -> 1
+            o1 is Urine && o2 is Urine -> 0
+            o1 is Urine -> -1
+            o2 is Urine -> 1
             o1.y < o2.y -> 1
             o1.y == o2.y -> 0
             else -> -1
@@ -110,7 +115,9 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     }
 
     override fun show() {
+        // TODO Tutorial on first show!
         super.show()
+        rayHandler.setAmbientLight(0f, 0f, 0f, 0.1f)
         stage.addActor(handImage)
         spawner.reset()
         dragController.reset()
@@ -143,11 +150,12 @@ class Spawner(val stage: Stage, val dragController: DragController) {
 }
 
 class DragController(val game: Game, val stage: Stage) {
-    var lives = 2
+    var currentSound: Sound? = null
+    var lives = 3
     var points = 0
 
     fun reset() {
-        lives = 100
+        lives = 3
     }
 
     fun getDraggable(): Draggable {
@@ -184,14 +192,25 @@ class DragController(val game: Game, val stage: Stage) {
 
     fun incrementPoints() {
         lives++
+        if (lives > 5) {
+            lives = 5
+        }
         points++
-        println("Points++")
-        displayPrompt(randomCaughtPrompt())
+        displayPrompt(randomCaughtPrompt(), negative = false)
     }
 
-    private fun displayPrompt(text: String) {
+    private fun displayPrompt(prompt: Prompt, negative: Boolean = true) {
         game.resetPrompt()
-        game.promptLabel.setText(text)
+        if (negative) {
+            game.promptLabel.color = negativeColor
+        } else {
+            game.promptLabel.color = positiveColor
+        }
+        game.promptLabel.setText(prompt.prompt)
+        currentSound?.stop()
+        currentSound = asset<Sound>("sounds/${prompt.toString()}.mp3").apply {
+            play(0.5f)
+        }
         game.promptLabel.addAction(Actions.parallel(
                 Actions.fadeIn(0.1f),
                 Actions.moveBy(15f, 10f, 0.15f)
@@ -202,15 +221,18 @@ class DragController(val game: Game, val stage: Stage) {
 
     fun decrementPoints(run: Boolean = false) {
         lives--
-        println("Points--")
         if (lives == 0) {
             // TODO display dialog, go to menu
         } else if (lives > 0) {
-            if (run) {
-                displayPrompt(randomRunPrompt())
+            val prompt: Prompt = if (run) {
+                randomRunPrompt()
             } else {
-                displayPrompt(randomMissmatchPrompt())
+                randomMissmatchPrompt()
             }
+            displayPrompt(prompt)
         }
     }
 }
+
+val positiveColor = Color(0.6f, 1f, 0.6f, 1f)
+val negativeColor = Color(1f, 0.6f, 0.6f, 1f)
