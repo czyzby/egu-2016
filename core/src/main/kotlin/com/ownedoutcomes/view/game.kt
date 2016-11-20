@@ -36,6 +36,7 @@ import ktx.actors.then
 import ktx.assets.asset
 import ktx.assets.getValue
 import ktx.assets.loadOnDemand
+import ktx.collections.gdxArrayOf
 import ktx.inject.inject
 import ktx.math.vec2
 import ktx.vis.KFloatingGroup
@@ -53,6 +54,7 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     val spawner = Spawner(stage, dragController, this)
     val handImage = VisImage("hand")
     val promptLabel = VisLabel("", "title")
+    val healthIcons = gdxArrayOf<Image>()
     override val root: Actor
     lateinit var urineImage: Image
     lateinit var beerImage: Image
@@ -70,10 +72,20 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
             background = TextureRegionDrawable(TextureRegion(backgroundImage, 0, 0, 1000, 750))
             setFillParent(true)
             table {
+                padLeft(140f)
+                padRight(10f)
                 pointsLabel = label("0", styleName = "title") {
                     color = Color.DARK_GRAY
-                }.padBottom(155f).padLeft(60f).actor
+                    setAlignment(Align.center)
+                }.width(100f).padBottom(155f).padLeft(60f).actor
             }.align(Align.right).expand()
+            table {
+                healthIcons.add(image("health").actor)
+                row()
+                healthIcons.add(image("health").actor)
+                row()
+                healthIcons.add(image("health").expandY().align(Align.top).actor)
+            }.expandY().align(Align.top).padTop(50f)
             table {
                 urineImage = image(drawableName = "piss").actor
                 image(drawableName = "beer") {
@@ -145,6 +157,7 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
         spawner.reset()
         dragController.reset()
         stage.addActor(promptLabel)
+        healthIcons.forEach { it.alpha = 1f }
     }
 
     private fun showTutorial() {
@@ -181,8 +194,8 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
             addTutorialLabel("To Ty: służebnica\nprawa i obyczajów. >", x = 60f, y = 460f)
             addTutorialLabel("Tylu degeneratów >\nzostało ukaranych.", x = 70f, y = 300f)
             addTutorialLabel("< Tędy chadzają ludzie. >", x = 250f, y = 120f)
-            addTutorialLabel("Uważaj na prawych obywateli, a karaj hultajów.", x = 120f, y = 60f)
-            addTutorialLabel("Niech światło Twej latarki przynosi sprawiedliwość! A teraz kliknij!", x = 15f, y = 10f)
+            addTutorialLabel("Uważaj na prawych obywateli, a karaj nicponi.", x = 120f, y = 60f)
+            addTutorialLabel("Teraz kliknij gdziekolwiek, by zacząć!", x = 160f, y = 10f)
             addTutorialLabel("                         >\nTutaj zgłaszamy złoczyńców,\nprzeciągając ich\nna ikony zgodne\nz przewinieniami.",
                     x = 410f, y = 210f)
             touchable = Touchable.enabled
@@ -263,27 +276,38 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     }
 }
 
-// TODO display health
-
 val initialLightDistance = 150f
 
 class Spawner(val stage: Stage, val dragController: DragController, val game: Game) {
-    var timeSinceSpawn = 0f
-    var timeSinceRandomEvent = 0f
+    var timeToSpawn = 0f
+    var timeToRandomEvent = 0f
 
     fun update(delta: Float) {
         if (dragController.lives <= 0) {
             return
         }
-        timeSinceSpawn += delta
-        if (timeSinceSpawn > MathUtils.random(2f, 2.8f)) { // TODO adjust speed with points
+        timeToSpawn -= delta
+        if (timeToSpawn <= 0f) {
             spawn()
-            timeSinceSpawn = 0f
+            timeToSpawn = getNextTimeToSpawn()
+            println("Next time to spawn: $timeToSpawn")
         }
-        timeSinceRandomEvent += delta
-        if (timeSinceRandomEvent > MathUtils.random(5f, 10f)) {
+        timeToRandomEvent -= delta
+        if (timeToRandomEvent <= 0f) {
             randomEvent()
-            timeSinceRandomEvent = 0f;
+            timeToRandomEvent = MathUtils.random(8f, 12f)
+            println("Next time to spawn random: $timeToRandomEvent")
+        }
+    }
+
+    private fun getNextTimeToSpawn(): Float {
+        val base = MathUtils.random(1.5f, 3f)
+        val points = dragController.points
+        return when (points) {
+            in 0..50 -> base + 1.5f - 1.5f * (points / 50f)
+            in 51..75 -> base * 0.9f
+            in 75..100 -> base * 0.8f
+            else -> base * 0.7f
         }
     }
 
@@ -317,8 +341,8 @@ class Spawner(val stage: Stage, val dragController: DragController, val game: Ga
     }
 
     fun reset() {
-        timeSinceSpawn = 0f
-        timeSinceRandomEvent = 0f
+        timeToSpawn = 0f
+        timeToRandomEvent = 5f
     }
 }
 
@@ -370,6 +394,7 @@ class DragController(val game: Game, val stage: Stage) {
         if (lives > 3) {
             lives = 3
         }
+        updateLiveIcons()
         points++
         updatePointsLabel()
         displayPrompt(randomCaughtPrompt(), negative = false)
@@ -387,6 +412,20 @@ class DragController(val game: Game, val stage: Stage) {
                 Actions.moveBy(0f, 5f, 0.1f),
                 Actions.moveBy(0f, -5f, 0.1f)
         ))
+    }
+
+    private fun updateLiveIcons() {
+        checkIcon(0)
+        checkIcon(1)
+        checkIcon(2)
+    }
+
+    private fun checkIcon(id: Int) {
+        if (lives <= id) {
+            game.healthIcons[id].addAction(Actions.alpha(0.4f, 0.1f))
+        } else {
+            game.healthIcons[id].addAction(Actions.alpha(1f, 0.1f))
+        }
     }
 
     fun displayPrompt(prompt: Prompt, negative: Boolean = true) {
@@ -411,6 +450,7 @@ class DragController(val game: Game, val stage: Stage) {
 
     fun decrementPoints(run: Boolean = false) {
         lives--
+        updateLiveIcons()
         if (lives == 0) {
             game.lose(points)
         } else if (lives > 0) {

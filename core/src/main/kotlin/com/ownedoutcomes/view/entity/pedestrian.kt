@@ -83,7 +83,16 @@ abstract class Pedestrian(drawableName: String, val dragController: DragControll
 
     protected open fun getRotationSpeed() = 0.4f
 
-    open fun getMovementSpeed() = MathUtils.random(3.6f, 6f) // TODO change with points amount
+    open fun getMovementSpeed(): Float {
+        val base = MathUtils.random(3.6f, 6f)
+        val points = dragController.points
+        if (points > 30) {
+            return base - 0.75f
+        } else if (points > 60) {
+            return base - 1.5f
+        }
+        return base
+    }
 }
 
 class GoodCitizen(dragController: DragController) :

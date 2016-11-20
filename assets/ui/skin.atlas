@@ -83,7 +83,7 @@ beer8
   index: -1
 glasses
   rotate: false
-  xy: 441, 697
+  xy: 102, 60
   size: 67, 24
   orig: 70, 70
   offset: 1, 21
@@ -101,6 +101,13 @@ hand
   size: 88, 45
   orig: 100, 100
   offset: 2, 31
+  index: -1
+health
+  rotate: false
+  xy: 381, 673
+  size: 54, 47
+  orig: 60, 60
+  offset: 4, 6
   index: -1
 piss
   rotate: false
@@ -279,7 +286,7 @@ tutorialcursor
   index: -1
 urine
   rotate: false
-  xy: 381, 694
+  xy: 102, 33
   size: 59, 26
   orig: 70, 70
   offset: 5, 23
