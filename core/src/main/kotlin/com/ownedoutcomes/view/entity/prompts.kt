@@ -28,7 +28,7 @@ enum class RunPrompt(override val prompt: String) : Prompt{
     RUN1("Uciekł mnie!"),
     RUN2("A gdzie on!"),
     RUN3("O, polazł mnie!"),
-    RUN4("Niech cie chudy grzyb!")
+    RUN4("Niech cię chudy grzyb!")
 }
 
 fun randomCaughtPrompt() = CaughtPrompt.values()[MathUtils.random(0, CaughtPrompt.values().size - 1)]
@@ -36,7 +36,7 @@ fun randomMissmatchPrompt() = MissmatchPrompt.values()[MathUtils.random(0, Missm
 fun randomRunPrompt() = RunPrompt.values()[MathUtils.random(0, RunPrompt.values().size - 1)]
 
 fun loadSounds() {
-    CaughtPrompt.values().forEach { loadOnDemand<Sound>("sounds/${it.name}.mp3").asset }
-    MissmatchPrompt.values().forEach { loadOnDemand<Sound>("sounds/${it.name}.mp3").asset }
-    RunPrompt.values().forEach { loadOnDemand<Sound>("sounds/${it.name}.mp3").asset }
+    CaughtPrompt.values().forEach { loadOnDemand<Sound>("sounds/${it.name}.wav").asset }
+    MissmatchPrompt.values().forEach { loadOnDemand<Sound>("sounds/${it.name}.wav").asset }
+    RunPrompt.values().forEach { loadOnDemand<Sound>("sounds/${it.name}.wav").asset }
 }

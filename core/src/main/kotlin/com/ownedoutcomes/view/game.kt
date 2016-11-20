@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.World
-import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -23,15 +22,18 @@ import com.badlogic.gdx.utils.Align
 import com.kotcrab.vis.ui.widget.Draggable
 import com.kotcrab.vis.ui.widget.VisImage
 import com.kotcrab.vis.ui.widget.VisLabel
+import com.ownedoutcomes.Main
 import com.ownedoutcomes.view.entity.*
 import ktx.actors.alpha
+import ktx.actors.onChange
 import ktx.actors.then
 import ktx.assets.asset
 import ktx.assets.getValue
-import ktx.assets.load
 import ktx.assets.loadOnDemand
+import ktx.inject.inject
 import ktx.math.vec2
 import ktx.vis.table
+import ktx.vis.window
 import java.util.*
 
 class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
@@ -48,6 +50,7 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     lateinit var beerImage: Image
     lateinit var vodkaImage: Image
     lateinit var smokeImage: Image
+    lateinit var pointsLabel: Label
 
     init {
         light.isXray = true
@@ -57,6 +60,11 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
             backgroundImage.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             background = TextureRegionDrawable(TextureRegion(backgroundImage, 0, 0, 1000, 750))
             setFillParent(true)
+            table {
+                pointsLabel = label("0", styleName = "title") {
+                    color = Color.DARK_GRAY
+                }.padBottom(155f).padLeft(60f).actor
+            }.align(Align.right).expand()
             table {
                 urineImage = image(drawableName = "piss").actor
                 image(drawableName = "beer") {
@@ -127,6 +135,53 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     private fun sortActors() {
         stage.actors.sort(actorsComparator)
     }
+
+    fun lose(points: Int) {
+        rayHandler.setAmbientLight(0f, 0f, 0f, 1f)
+        showLoseDialog(points)
+    }
+
+    private fun showLoseDialog(points: Int) {
+        val dialog = window(title = if (points > 0) "Dziękujemy!" else "Peszek!", styleName = "dialog") {
+            titleLabel.setEllipsis(false)
+            titleTable.getCell(titleLabel).padLeft(75f).padRight(100f).expandX().align(Align.center)
+            padTop(50f)
+            defaults().pad(5f)
+            isModal = true
+            isMovable = false
+            if (points > 0) {
+                table {
+                    val pointsAsString = points.toString()
+                    label(pointsAsString, styleName = "title") {
+                        color = Color.FIREBRICK
+                    }.padRight(8f)
+                    val lastDigit = Integer.parseInt(pointsAsString[pointsAsString.length - 1].toString())
+                    val polishLol = when (lastDigit) {
+                        1 -> "hultaj ma"
+                        in 2..4 -> "hultaje mają"
+                        else -> "hultajów ma"
+                    }
+                    label("$polishLol przekichane.", styleName = "title") {
+                        color = Color.GRAY
+                    }
+                }.row()
+            }
+            textButton("Ja chcę jeszcze raz!", styleName = "title") {
+                onChange { event, button ->
+                    inject<Main>().setCurrentView(this@Game)
+                }
+            }.row()
+            textButton("Mam dość...", styleName = "title") {
+                onChange { event, button ->
+                    inject<Main>().setCurrentView(inject<Menu>())
+                }
+            }
+        }
+        stage.addActor(dialog)
+        dialog.pack()
+        dialog.centerWindow()
+        dialog.fadeIn()
+    }
 }
 
 class Spawner(val stage: Stage, val dragController: DragController) {
@@ -151,11 +206,13 @@ class Spawner(val stage: Stage, val dragController: DragController) {
 
 class DragController(val game: Game, val stage: Stage) {
     var currentSound: Sound? = null
-    var lives = 3
-    var points = 0
+    var lives = 1
+    var points = 9
 
     fun reset() {
-        lives = 3
+        lives = 1
+        points = 9
+        game.pointsLabel.setText("0")
     }
 
     fun getDraggable(): Draggable {
@@ -196,6 +253,11 @@ class DragController(val game: Game, val stage: Stage) {
             lives = 5
         }
         points++
+        game.pointsLabel.setText(points.toString())
+        game.pointsLabel.addAction(Actions.sequence(
+                Actions.moveBy(0f, 5f, 0.1f),
+                Actions.moveBy(0f, -5f, 0.1f)
+        ))
         displayPrompt(randomCaughtPrompt(), negative = false)
     }
 
@@ -208,7 +270,7 @@ class DragController(val game: Game, val stage: Stage) {
         }
         game.promptLabel.setText(prompt.prompt)
         currentSound?.stop()
-        currentSound = asset<Sound>("sounds/${prompt.toString()}.mp3").apply {
+        currentSound = asset<Sound>("sounds/${prompt.toString()}.wav").apply {
             play(0.5f)
         }
         game.promptLabel.addAction(Actions.parallel(
@@ -222,7 +284,7 @@ class DragController(val game: Game, val stage: Stage) {
     fun decrementPoints(run: Boolean = false) {
         lives--
         if (lives == 0) {
-            // TODO display dialog, go to menu
+            game.lose(points)
         } else if (lives > 0) {
             val prompt: Prompt = if (run) {
                 randomRunPrompt()

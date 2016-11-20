@@ -79,13 +79,13 @@ abstract class Pedestrian(val drawableName: String, val dragController: DragCont
 }
 
 class GoodCitizen(dragController: DragController) :
-        Pedestrian((0..5).map { "regular$it" }.toGdxArray().random(), dragController) {
+        Pedestrian((0..7).map { "regular$it" }.toGdxArray().random(), dragController) {
     override val type: PedestrianType
         get() = PedestrianType.REGULAR
 }
 
 class Pisser(dragController: DragController) :
-        Pedestrian((0..5).map { "regular$it" }.toGdxArray().random(), dragController) {
+        Pedestrian((0..7).map { "regular$it" }.toGdxArray().random(), dragController) {
     override val type: PedestrianType
         get() = PedestrianType.URINE
 

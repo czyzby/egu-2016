@@ -2,6 +2,7 @@ package com.ownedoutcomes
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -25,8 +26,7 @@ import ktx.assets.loadOnDemand
 import ktx.assets.toInternalFile
 import ktx.inject.inject
 import ktx.inject.register
-import ktx.style.button
-import ktx.style.label
+import ktx.style.*
 
 class Main : KotlinApplication() {
     private var view: View = MockView()
@@ -38,7 +38,6 @@ class Main : KotlinApplication() {
         loadSounds()
         loadMusic()
         val skin = createSkin()
-
         val menuView = Menu(stage)
         val gameView = Game(stage, skin, batch)
         val main = this
@@ -62,17 +61,27 @@ class Main : KotlinApplication() {
     private fun createSkin(): Skin {
         val skin = VisUI.getSkin()
         skin.addRegions(loadOnDemand<TextureAtlas>(path = "ui/skin.atlas").asset)
+        skin.add("title", BitmapFont("title.fnt".toInternalFile(), skin.getRegion("title")))
         skin.label("title") {
-            font = BitmapFont("title.fnt".toInternalFile(), skin.getRegion("title"))
+            font = skin.getFont("title")
         }
         skin.button("start") {
             up = skin.getDrawable("start-up")
-            unpressedOffsetX = -1f
-            unpressedOffsetY = -1f
-            pressedOffsetX = 1f
-            pressedOffsetY = 1f
             over = skin.getDrawable("start-over")
             down = skin.getDrawable("start-down")
+        }
+        skin.visTextButton("title") {
+            font = skin.getFont("title")
+            fontColor = Color.WHITE
+            overFontColor = Color.CORAL
+            downFontColor = Color.FIREBRICK
+            pressedOffsetX = 1f
+            pressedOffsetY = -1f
+        }
+        skin.window("dialog") {
+            titleFont = skin.getFont("title")
+            titleFontColor = Color.CORAL
+            stageBackground = skin.getDrawable("dialogDim")
         }
         return skin
     }
