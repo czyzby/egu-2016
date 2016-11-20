@@ -1,244 +1,363 @@
 
 skin.png
-size: 1024,512
+size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+battery
+  rotate: false
+  xy: 527, 851
+  size: 32, 57
+  orig: 70, 70
+  offset: 17, 6
+  index: -1
 beer
   rotate: false
-  xy: 591, 46
+  xy: 381, 721
   size: 59, 94
   orig: 100, 100
   offset: 21, 3
   index: -1
 beer0
   rotate: false
-  xy: 257, 359
+  xy: 1, 516
   size: 105, 146
   orig: 150, 150
   offset: 21, 4
   index: -1
 beer1
   rotate: false
-  xy: 452, 263
+  xy: 183, 96
   size: 87, 130
   orig: 150, 150
   offset: 40, 6
   index: -1
 beer2
   rotate: false
-  xy: 108, 148
+  xy: 107, 516
   size: 98, 146
   orig: 150, 150
   offset: 30, 4
   index: -1
 beer3
   rotate: false
-  xy: 283, 12
+  xy: 428, 240
   size: 83, 136
   orig: 150, 150
   offset: 38, 5
   index: -1
+beer4
+  rotate: false
+  xy: 302, 521
+  size: 91, 143
+  orig: 150, 150
+  offset: 36, 4
+  index: -1
+beer5
+  rotate: false
+  xy: 365, 816
+  size: 82, 92
+  orig: 150, 150
+  offset: 38, 5
+  index: -1
+beer6
+  rotate: false
+  xy: 755, 878
+  size: 94, 142
+  orig: 150, 150
+  offset: 31, 4
+  index: -1
+beer7
+  rotate: false
+  xy: 201, 372
+  size: 87, 143
+  orig: 150, 150
+  offset: 43, 4
+  index: -1
+beer8
+  rotate: false
+  xy: 1, 77
+  size: 97, 144
+  orig: 150, 150
+  offset: 28, 4
+  index: -1
+glasses
+  rotate: false
+  xy: 441, 697
+  size: 67, 24
+  orig: 70, 70
+  offset: 1, 21
+  index: -1
+granny
+  rotate: false
+  xy: 311, 683
+  size: 69, 127
+  orig: 150, 150
+  offset: 53, 7
+  index: -1
 hand
   rotate: false
-  xy: 363, 348
+  xy: 935, 694
   size: 88, 45
   orig: 100, 100
   offset: 2, 31
   index: -1
 piss
   rotate: false
-  xy: 257, 295
+  xy: 257, 811
   size: 67, 63
   orig: 100, 100
   offset: 15, 18
   index: -1
-piss0
-  rotate: false
-  xy: 404, 153
-  size: 64, 109
-  orig: 128, 128
-  offset: 28, 0
-  index: -1
 regular0
   rotate: false
-  xy: 1, 148
+  xy: 1, 663
   size: 106, 146
   orig: 150, 150
   offset: 20, 4
   index: -1
 regular1
   rotate: false
-  xy: 540, 217
+  xy: 271, 98
   size: 87, 130
   orig: 150, 150
   offset: 40, 6
   index: -1
 regular2
   rotate: false
-  xy: 107, 1
+  xy: 1, 222
   size: 98, 146
   orig: 150, 150
   offset: 31, 4
   index: -1
 regular3
   rotate: false
-  xy: 367, 13
+  xy: 99, 85
   size: 83, 136
   orig: 150, 150
   offset: 38, 5
   index: -1
 regular4
   rotate: false
-  xy: 751, 220
+  xy: 845, 735
   size: 89, 142
   orig: 150, 150
   offset: 36, 5
   index: -1
 regular5
   rotate: false
-  xy: 451, 59
+  xy: 448, 815
   size: 78, 93
   orig: 150, 150
   offset: 38, 4
   index: -1
 regular6
   rotate: false
-  xy: 753, 363
+  xy: 850, 878
   size: 90, 142
   orig: 150, 150
   offset: 35, 5
   index: -1
 regular7
   rotate: false
-  xy: 931, 219
+  xy: 100, 226
   size: 76, 142
   orig: 150, 150
   offset: 43, 4
   index: -1
 regular8
   rotate: false
-  xy: 307, 150
+  xy: 214, 665
   size: 96, 144
   orig: 150, 150
   offset: 28, 4
   index: -1
 smoke
   rotate: false
-  xy: 534, 141
+  xy: 1, 1
   size: 80, 75
   orig: 100, 100
   offset: 10, 19
   index: -1
 smoke0
   rotate: false
-  xy: 1, 1
+  xy: 108, 663
   size: 105, 146
   orig: 150, 150
   offset: 21, 4
   index: -1
 smoke1
   rotate: false
-  xy: 628, 175
+  xy: 446, 110
   size: 85, 129
   orig: 150, 150
   offset: 40, 6
   index: -1
 smoke2
   rotate: false
-  xy: 207, 149
+  xy: 101, 370
   size: 99, 145
   orig: 150, 150
   offset: 30, 5
   index: -1
 smoke3
   rotate: false
-  xy: 935, 368
+  xy: 935, 740
   size: 84, 137
   orig: 150, 150
   offset: 37, 4
   index: -1
 smoke4
   rotate: false
-  xy: 841, 219
+  xy: 177, 227
   size: 89, 142
   orig: 150, 150
   offset: 36, 5
   index: -1
 smoke5
   rotate: false
-  xy: 558, 348
+  xy: 560, 863
   size: 96, 101
   orig: 150, 150
   offset: 21, 4
   index: -1
 smoke6
   rotate: false
-  xy: 844, 362
+  xy: 289, 374
   size: 90, 143
   orig: 150, 150
   offset: 35, 4
   index: -1
 smoke7
   rotate: false
-  xy: 206, 5
+  xy: 267, 229
   size: 76, 142
   orig: 150, 150
   offset: 43, 4
   index: -1
 smoke8
   rotate: false
-  xy: 655, 305
+  xy: 206, 518
   size: 95, 144
   orig: 150, 150
   offset: 28, 4
   index: -1
 start-down
   rotate: false
-  xy: 363, 450
+  xy: 365, 965
   size: 194, 55
   orig: 199, 67
   offset: 1, 6
   index: -1
 start-over
   rotate: false
-  xy: 363, 394
+  xy: 365, 909
   size: 194, 55
   orig: 199, 67
   offset: 1, 6
   index: -1
 start-up
   rotate: false
-  xy: 558, 450
+  xy: 560, 965
   size: 194, 55
   orig: 199, 67
   offset: 1, 6
   index: -1
 title
   rotate: false
-  xy: 1, 295
+  xy: 1, 810
   size: 255, 210
   orig: 256, 256
   offset: 0, 46
   index: -1
+tutorialcursor
+  rotate: false
+  xy: 325, 827
+  size: 28, 47
+  orig: 150, 150
+  offset: 68, 39
+  index: -1
 urine
   rotate: false
-  xy: 451, 32
+  xy: 381, 694
   size: 59, 26
   orig: 70, 70
   offset: 5, 23
   index: -1
 vodka
   rotate: false
-  xy: 530, 49
+  xy: 520, 723
   size: 60, 91
   orig: 100, 100
   offset: 20, 6
   index: -1
+vodka-falling
+  rotate: false
+  xy: 82, 7
+  size: 19, 69
+  orig: 70, 70
+  offset: 25, 0
+  index: -1
 vodka0
   rotate: false
-  xy: 469, 153
-  size: 64, 109
-  orig: 128, 128
-  offset: 28, 0
+  xy: 257, 875
+  size: 107, 145
+  orig: 150, 150
+  offset: 20, 5
+  index: -1
+vodka1
+  rotate: false
+  xy: 359, 105
+  size: 86, 130
+  orig: 150, 150
+  offset: 40, 6
+  index: -1
+vodka2
+  rotate: false
+  xy: 1, 369
+  size: 99, 146
+  orig: 150, 150
+  offset: 30, 4
+  index: -1
+vodka3
+  rotate: false
+  xy: 344, 236
+  size: 83, 137
+  orig: 150, 150
+  offset: 38, 4
+  index: -1
+vodka4
+  rotate: false
+  xy: 380, 377
+  size: 89, 143
+  orig: 150, 150
+  offset: 36, 4
+  index: -1
+vodka5
+  rotate: false
+  xy: 441, 722
+  size: 78, 92
+  orig: 150, 150
+  offset: 38, 5
+  index: -1
+vodka6
+  rotate: false
+  xy: 754, 735
+  size: 90, 142
+  orig: 150, 150
+  offset: 35, 4
+  index: -1
+vodka7
+  rotate: false
+  xy: 941, 878
+  size: 82, 142
+  orig: 150, 150
+  offset: 43, 4
+  index: -1
+vodka8
+  rotate: false
+  xy: 657, 820
+  size: 96, 144
+  orig: 150, 150
+  offset: 28, 4
   index: -1

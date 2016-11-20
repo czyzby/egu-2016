@@ -18,7 +18,7 @@ import com.ownedoutcomes.view.Game
 import com.ownedoutcomes.view.Menu
 import com.ownedoutcomes.view.MockView
 import com.ownedoutcomes.view.View
-import com.ownedoutcomes.view.entity.loadSounds
+import com.ownedoutcomes.music.loadSounds
 import ktx.app.KotlinApplication
 import ktx.app.LetterboxingViewport
 import ktx.assets.Assets
