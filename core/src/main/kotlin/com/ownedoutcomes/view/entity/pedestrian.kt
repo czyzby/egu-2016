@@ -24,7 +24,7 @@ enum class PedestrianType {
 }
 
 fun getRandomPedestrian(dragController: DragController): Pedestrian {
-    if (MathUtils.random() < 0.4f) {
+    if (MathUtils.random() < 0.275f) {
         return GoodCitizen(dragController)
     }
     return when (PedestrianType.values()[MathUtils.random(0, PedestrianType.values().size - 1)]) {
