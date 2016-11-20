@@ -1,5 +1,6 @@
 package com.ownedoutcomes.view.entity
 
+import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.MathUtils
@@ -7,8 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.kotcrab.vis.ui.VisUI
 import com.kotcrab.vis.ui.widget.VisImage
+import com.ownedoutcomes.music.MiscPrompt
 import com.ownedoutcomes.view.DragController
+import ktx.actors.onClick
 import ktx.actors.then
+import ktx.assets.asset
 import ktx.collections.toGdxArray
 
 enum class PedestrianType {
@@ -32,7 +36,7 @@ fun getRandomPedestrian(dragController: DragController): Pedestrian {
     }
 }
 
-abstract class Pedestrian(val drawableName: String, val dragController: DragController) : VisImage(drawableName) {
+abstract class Pedestrian(drawableName: String, val dragController: DragController) : VisImage(drawableName) {
     private val sprite = Sprite(VisUI.getSkin().getRegion(drawableName))
     abstract val type: PedestrianType
 
@@ -66,16 +70,20 @@ abstract class Pedestrian(val drawableName: String, val dragController: DragCont
     open protected fun addInitialActions(targetX: Float) {
         setOrigin(width / 2f, height / 2f)
         addAction(Actions.forever(Actions.sequence(
-                Actions.rotateBy(20f, 0.2f),
-                Actions.rotateBy(-40f, 0.4f),
-                Actions.rotateBy(20f, 0.2f)
+                Actions.rotateBy(20f, getRotationSpeed() / 2f),
+                Actions.rotateBy(-40f, getRotationSpeed()),
+                Actions.rotateBy(20f, getRotationSpeed() / 2f)
         )))
-        addAction(Actions.moveTo(targetX, randomY(), MathUtils.random(3.6f, 6f)) then Actions.run {
+        addAction(Actions.moveTo(targetX, randomY(), getMovementSpeed()) then Actions.run {
             if (type != PedestrianType.REGULAR) {
                 dragController.decrementPoints(run = true)
             }
         } then Actions.removeActor())
     }
+
+    protected open fun getRotationSpeed() = 0.4f
+
+    open fun getMovementSpeed() = MathUtils.random(3.6f, 6f) // TODO change with points amount
 }
 
 class GoodCitizen(dragController: DragController) :
@@ -91,7 +99,7 @@ class Pisser(dragController: DragController) :
 
     override fun addInitialActions(targetX: Float) {
         setOrigin(width / 2f, height / 2f)
-        val totalTime = MathUtils.random(3f, 6f)
+        val totalTime = getMovementSpeed()
         val pissingTime = MathUtils.random(1f, totalTime - 1.5f)
         val rotationAction = addRotation()
         val walkingAction = addWalkingAction(targetX, totalTime)
@@ -113,6 +121,7 @@ class Pisser(dragController: DragController) :
         urine.addAction(Actions.scaleTo(1f, 1f, 0.5f) then Actions.delay(3f)
                 then Actions.fadeOut(0.4f) then Actions.removeActor())
         stage.addActor(urine)
+        asset<Sound>("sounds/URINATE.wav").play(0.25f)
     }
 
     private fun addRotation(): Action {
@@ -128,7 +137,7 @@ class Pisser(dragController: DragController) :
     private fun addWalkingAction(targetX: Float, totalTime: Float): Action {
         val action = Actions.moveTo(targetX, randomY(), totalTime) then Actions.run {
             dragController.decrementPoints(run = true)
-        } then Actions.removeActor();
+        } then Actions.removeActor()
         addAction(action)
         return action
     }
@@ -137,13 +146,13 @@ class Pisser(dragController: DragController) :
 class Urine : VisImage("urine")
 
 class BeerDrinker(dragController: DragController) :
-        Pedestrian((0..3).map { "beer$it" }.toGdxArray().random(), dragController) {
+        Pedestrian((0..8).map { "beer$it" }.toGdxArray().random(), dragController) {
     override val type: PedestrianType
         get() = PedestrianType.BEER
 }
 
 class VodkaDrinker(dragController: DragController) :
-        Pedestrian((0..0).map { "vodka$it" }.toGdxArray().random(), dragController) {
+        Pedestrian((0..8).map { "vodka$it" }.toGdxArray().random(), dragController) {
     override val type: PedestrianType
         get() = PedestrianType.VODKA
 }
@@ -152,4 +161,20 @@ class Smoker(dragController: DragController) :
         Pedestrian((0..8).map { "smoke$it" }.toGdxArray().random(), dragController) {
     override val type: PedestrianType
         get() = PedestrianType.SMOKE
+}
+
+class Granny(dragController: DragController) : Pedestrian("granny", dragController) {
+    override val type: PedestrianType
+        get() = PedestrianType.REGULAR
+
+    init {
+        listeners.clear()
+        onClick { event, granny ->
+            dragController.boostPoints(MiscPrompt.GRANNY)
+            remove()
+        }
+    }
+
+    override fun getMovementSpeed(): Float = MathUtils.random(8f, 11f)
+    override fun getRotationSpeed(): Float = 0.8f
 }

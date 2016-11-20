@@ -24,6 +24,10 @@ import com.kotcrab.vis.ui.widget.Draggable
 import com.kotcrab.vis.ui.widget.VisImage
 import com.kotcrab.vis.ui.widget.VisLabel
 import com.ownedoutcomes.Main
+import com.ownedoutcomes.music.Prompt
+import com.ownedoutcomes.music.randomCaughtPrompt
+import com.ownedoutcomes.music.randomMissmatchPrompt
+import com.ownedoutcomes.music.randomRunPrompt
 import com.ownedoutcomes.view.entity.*
 import ktx.actors.alpha
 import ktx.actors.onChange
@@ -43,10 +47,10 @@ import java.util.*
 class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     val backgroundImage by loadOnDemand<Texture>(path = "background.png")
     val rayHandler = RayHandler(World(vec2(), true))
-    val light = PointLight(rayHandler, 30, Color(0f, 0f, 0f, 1f), 150f, 100f, 100f)
+    val light = PointLight(rayHandler, 30, Color(0f, 0f, 0f, 1f), initialLightDistance, 100f, 100f)
     val lightPosition = vec2()
     val dragController = DragController(this, stage)
-    val spawner = Spawner(stage, dragController)
+    val spawner = Spawner(stage, dragController, this)
     val handImage = VisImage("hand")
     val promptLabel = VisLabel("", "title")
     override val root: Actor
@@ -135,6 +139,7 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
             showTutorial()
         }
         super.show()
+        light.distance = initialLightDistance
         rayHandler.setAmbientLight(0f, 0f, 0f, 0.1f)
         stage.addActor(handImage)
         spawner.reset()
@@ -149,10 +154,35 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
                 width = 800f
                 height = 600f
             }
+            image("beer2") {
+                x = 850f
+                y = 75f
+                setOrigin(width / 2f, height / 2f)
+                addAction(Actions.forever(Actions.sequence(
+                        Actions.rotateBy(20f, 0.2f),
+                        Actions.rotateBy(-40f, 0.4f),
+                        Actions.rotateBy(20f, 0.2f)
+                )))
+                addAction(Actions.forever(Actions.moveTo(630f, 75f, 2f)
+                        then Actions.moveTo(690f, 510f, 1f)
+                        then Actions.fadeOut(0.2f)
+                        then Actions.moveTo(850f, 75f)
+                        then Actions.alpha(1f)))
+            }
+            image("tutorialcursor") {
+                x = 850f
+                y = 300f
+                setOrigin(width / 2f, height / 2f)
+                addAction(Actions.forever(Actions.delay(1.4f)
+                        then Actions.moveTo(630f, 75f, 0.6f)
+                        then Actions.moveTo(690f, 510f, 1f)
+                        then Actions.moveTo(850f, 300f, 0.22f)))
+            }
             addTutorialLabel("To Ty: służebnica\nprawa i obyczajów. >", x = 60f, y = 460f)
             addTutorialLabel("Tylu degeneratów >\nzostało ukaranych.", x = 70f, y = 300f)
-            addTutorialLabel("< Tędy chadzają ludzie. >", x = 250f, y = 80f)
-            addTutorialLabel("Uważaj na prawych obywateli, a karaj hultajów. Powodzenia!", x = 80f, y = 10f)
+            addTutorialLabel("< Tędy chadzają ludzie. >", x = 250f, y = 120f)
+            addTutorialLabel("Uważaj na prawych obywateli, a karaj hultajów.", x = 120f, y = 60f)
+            addTutorialLabel("Niech światło Twej latarki przynosi sprawiedliwość! A teraz kliknij!", x = 15f, y = 10f)
             addTutorialLabel("                         >\nTutaj zgłaszamy złoczyńców,\nprzeciągając ich\nna ikony zgodne\nz przewinieniami.",
                     x = 410f, y = 210f)
             touchable = Touchable.enabled
@@ -227,16 +257,42 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
         dialog.centerWindow()
         dialog.fadeIn()
     }
+
+    fun improveVision() {
+        light.distance += 10f
+    }
 }
 
-class Spawner(val stage: Stage, val dragController: DragController) {
+// TODO display health
+
+val initialLightDistance = 150f
+
+class Spawner(val stage: Stage, val dragController: DragController, val game: Game) {
     var timeSinceSpawn = 0f
+    var timeSinceRandomEvent = 0f
 
     fun update(delta: Float) {
+        if (dragController.lives <= 0) {
+            return
+        }
         timeSinceSpawn += delta
-        if (timeSinceSpawn > MathUtils.random(2f, 3f)) {
+        if (timeSinceSpawn > MathUtils.random(2f, 2.8f)) { // TODO adjust speed with points
             spawn()
             timeSinceSpawn = 0f
+        }
+        timeSinceRandomEvent += delta
+        if (timeSinceRandomEvent > MathUtils.random(5f, 10f)) {
+            randomEvent()
+            timeSinceRandomEvent = 0f;
+        }
+    }
+
+    private fun randomEvent() {
+        when (getRandomRandomEvent()) {
+            RandomEvent.VODKA -> spawnVodka()
+            RandomEvent.GRANNY -> spawnGranny()
+            RandomEvent.GLASSES -> spawnGlasses()
+            RandomEvent.BATTERY -> spawnBattery()
         }
     }
 
@@ -244,8 +300,25 @@ class Spawner(val stage: Stage, val dragController: DragController) {
         stage.addActor(getRandomPedestrian(dragController))
     }
 
+    private fun spawnVodka() {
+        stage.addActor(Vodka(game))
+    }
+
+    private fun spawnBattery() {
+        stage.addActor(Battery(game))
+    }
+
+    private fun spawnGlasses() {
+        stage.addActor(Glasses(game))
+    }
+
+    private fun spawnGranny() {
+        stage.addActor(Granny(dragController))
+    }
+
     fun reset() {
         timeSinceSpawn = 0f
+        timeSinceRandomEvent = 0f
     }
 }
 
@@ -255,10 +328,9 @@ class DragController(val game: Game, val stage: Stage) {
     var points = 0
 
     fun reset() {
-        lives = 1
+        lives = 3
         points = 0
         game.pointsLabel.setText("0")
-        // TODO Random events: glasses, batteries, other grannies
     }
 
     fun getDraggable(): Draggable {
@@ -303,6 +375,12 @@ class DragController(val game: Game, val stage: Stage) {
         displayPrompt(randomCaughtPrompt(), negative = false)
     }
 
+    fun boostPoints(prompt: Prompt) {
+        points += 2
+        updatePointsLabel()
+        displayPrompt(prompt, negative = false)
+    }
+
     private fun updatePointsLabel() {
         game.pointsLabel.setText(points.toString())
         game.pointsLabel.addAction(Actions.sequence(
@@ -311,7 +389,7 @@ class DragController(val game: Game, val stage: Stage) {
         ))
     }
 
-    private fun displayPrompt(prompt: Prompt, negative: Boolean = true) {
+    fun displayPrompt(prompt: Prompt, negative: Boolean = true) {
         game.resetPrompt()
         if (negative) {
             game.promptLabel.color = negativeColor
