@@ -28,7 +28,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -44,14 +44,14 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1366"
-     inkscape:window-height="719"
+     inkscape:window-height="716"
      id="namedview4"
      showgrid="false"
      showguides="false"
      inkscape:snap-text-baseline="false"
      inkscape:zoom="1.4142136"
-     inkscape:cx="173.14573"
-     inkscape:cy="119.60109"
+     inkscape:cx="96.424646"
+     inkscape:cy="118.18688"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -94,11 +94,6 @@
        style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.02219272;stroke-opacity:0"
        d="m 320.00977,444.56055 c -9.48414,4.77772 -18.44817,11.11042 -28.17869,15.65799 -9.08713,4.31592 -18.22096,9.99495 -28.70217,8.6174 -12.6496,0.0545 -27.21534,-3.56277 -34.11914,-14.94922 -5.39594,2.65168 -12.36661,9.78894 -7.60743,15.92383 4.65335,4.78658 11.31892,6.24705 16.75196,9.69336 6.70662,2.93114 13.91303,4.22597 21.14843,4.43359 10.33161,0.3291 22.02633,0.10657 30.5625,-6.79883 5.13969,-1.7779 9.68981,-4.86764 15.33985,-5.03711 5.71778,-1.3512 10.94888,-3.41284 16.10742,-5.82422 2.69201,-2.74198 4.53518,-6.5426 3.07812,-10.49218 -1.87218,-3.40502 -0.20387,-8.72361 -3.53124,-11.1211 -0.28269,-0.0374 -0.55859,-0.18098 -0.84961,-0.10351 z"
        id="rect4470-0-2"
-       inkscape:connector-curvature="0" />
-    <path
-       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.21787763;stroke-opacity:0"
-       d="m 226.375,372.08984 c -5.01534,-0.0927 -5.81635,6.83923 -1.25391,8.45313 4.9231,1.28625 6.49786,-8.3818 1.25391,-8.45313 z"
-       id="rect4926-9"
        inkscape:connector-curvature="0" />
     <path
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:9.69430637;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -462,15 +457,7 @@
      inkscape:groupmode="layer"
      id="layer9"
      inkscape:label="trousers"
-     style="display:inline">
-    <rect
-       style="fill:#241f1c;fill-opacity:1;stroke:#000000;stroke-width:1.21787763;stroke-opacity:0"
-       id="rect4926"
-       width="0.21529238"
-       height="0.053823095"
-       x="225.4407"
-       y="376.43677" />
-  </g>
+     style="display:inline" />
   <g
      inkscape:groupmode="layer"
      id="layer13"
