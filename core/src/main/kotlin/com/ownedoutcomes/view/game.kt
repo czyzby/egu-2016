@@ -263,9 +263,7 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     }
 }
 
-// TODO don't spawn after game stop
 // TODO display health
-// TODO spawn faster as the game progresses
 
 val initialLightDistance = 150f
 
@@ -274,8 +272,11 @@ class Spawner(val stage: Stage, val dragController: DragController, val game: Ga
     var timeSinceRandomEvent = 0f
 
     fun update(delta: Float) {
+        if (dragController.lives <= 0) {
+            return
+        }
         timeSinceSpawn += delta
-        if (timeSinceSpawn > MathUtils.random(2f, 2.8f)) {
+        if (timeSinceSpawn > MathUtils.random(2f, 2.8f)) { // TODO adjust speed with points
             spawn()
             timeSinceSpawn = 0f
         }

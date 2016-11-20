@@ -83,7 +83,7 @@ abstract class Pedestrian(drawableName: String, val dragController: DragControll
 
     protected open fun getRotationSpeed() = 0.4f
 
-    open fun getMovementSpeed() = MathUtils.random(3.6f, 6f)
+    open fun getMovementSpeed() = MathUtils.random(3.6f, 6f) // TODO change with points amount
 }
 
 class GoodCitizen(dragController: DragController) :
@@ -99,7 +99,7 @@ class Pisser(dragController: DragController) :
 
     override fun addInitialActions(targetX: Float) {
         setOrigin(width / 2f, height / 2f)
-        val totalTime = MathUtils.random(3f, 6f)
+        val totalTime = getMovementSpeed()
         val pissingTime = MathUtils.random(1f, totalTime - 1.5f)
         val rotationAction = addRotation()
         val walkingAction = addWalkingAction(targetX, totalTime)
