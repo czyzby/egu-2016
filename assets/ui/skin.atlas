@@ -81,6 +81,13 @@ beer8
   orig: 150, 150
   offset: 28, 4
   index: -1
+dialog-bg
+  rotate: false
+  xy: 177, 222
+  size: 4, 4
+  orig: 4, 4
+  offset: 0, 0
+  index: -1
 glasses
   rotate: false
   xy: 102, 60

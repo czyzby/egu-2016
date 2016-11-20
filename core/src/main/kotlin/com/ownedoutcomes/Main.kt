@@ -81,7 +81,7 @@ class Main : KotlinApplication() {
         skin.window("dialog") {
             titleFont = skin.getFont("title")
             titleFontColor = Color.CORAL
-            stageBackground = skin.getDrawable("dialogDim")
+            stageBackground = skin.getDrawable("dialog-bg")
         }
         return skin
     }
