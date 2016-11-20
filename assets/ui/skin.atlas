@@ -6,154 +6,238 @@ filter: Linear,Linear
 repeat: none
 beer
   rotate: false
-  xy: 807, 399
+  xy: 591, 46
   size: 59, 94
   orig: 100, 100
   offset: 21, 3
   index: -1
 beer0
   rotate: false
-  xy: 446, 308
-  size: 64, 109
-  orig: 128, 128
-  offset: 28, 0
+  xy: 257, 359
+  size: 105, 146
+  orig: 150, 150
+  offset: 21, 4
+  index: -1
+beer1
+  rotate: false
+  xy: 452, 263
+  size: 87, 130
+  orig: 150, 150
+  offset: 40, 6
+  index: -1
+beer2
+  rotate: false
+  xy: 108, 148
+  size: 98, 146
+  orig: 150, 150
+  offset: 30, 4
+  index: -1
+beer3
+  rotate: false
+  xy: 283, 12
+  size: 83, 136
+  orig: 150, 150
+  offset: 38, 5
   index: -1
 hand
   rotate: false
-  xy: 928, 448
+  xy: 363, 348
   size: 88, 45
   orig: 100, 100
   offset: 2, 31
   index: -1
 piss
   rotate: false
-  xy: 928, 384
+  xy: 257, 295
   size: 67, 63
   orig: 100, 100
   offset: 15, 18
   index: -1
 piss0
   rotate: false
-  xy: 612, 384
+  xy: 404, 153
   size: 64, 109
   orig: 128, 128
   offset: 28, 0
   index: -1
 regular0
   rotate: false
-  xy: 196, 144
-  size: 73, 138
+  xy: 1, 148
+  size: 106, 146
   orig: 150, 150
-  offset: 44, 5
+  offset: 20, 4
   index: -1
 regular1
   rotate: false
-  xy: 176, 13
+  xy: 540, 217
   size: 87, 130
   orig: 150, 150
   offset: 40, 6
   index: -1
 regular2
   rotate: false
-  xy: 257, 291
+  xy: 107, 1
   size: 98, 146
   orig: 150, 150
   offset: 31, 4
   index: -1
 regular3
   rotate: false
-  xy: 92, 34
+  xy: 367, 13
   size: 83, 136
   orig: 150, 150
   offset: 38, 5
   index: -1
 regular4
   rotate: false
-  xy: 356, 295
+  xy: 751, 220
   size: 89, 142
   orig: 150, 150
   offset: 36, 5
   index: -1
 regular5
   rotate: false
-  xy: 533, 400
+  xy: 451, 59
   size: 78, 93
   orig: 150, 150
   offset: 38, 4
   index: -1
 regular6
   rotate: false
-  xy: 1, 28
+  xy: 753, 363
   size: 90, 142
   orig: 150, 150
   offset: 35, 5
   index: -1
 regular7
   rotate: false
-  xy: 270, 148
+  xy: 931, 219
   size: 76, 142
   orig: 150, 150
   offset: 43, 4
   index: -1
+regular8
+  rotate: false
+  xy: 307, 150
+  size: 96, 144
+  orig: 150, 150
+  offset: 28, 4
+  index: -1
 smoke
   rotate: false
-  xy: 452, 418
+  xy: 534, 141
   size: 80, 75
   orig: 100, 100
   offset: 10, 19
   index: -1
 smoke0
   rotate: false
-  xy: 677, 384
-  size: 64, 109
-  orig: 128, 128
-  offset: 28, 0
+  xy: 1, 1
+  size: 105, 146
+  orig: 150, 150
+  offset: 21, 4
+  index: -1
+smoke1
+  rotate: false
+  xy: 628, 175
+  size: 85, 129
+  orig: 150, 150
+  offset: 40, 6
+  index: -1
+smoke2
+  rotate: false
+  xy: 207, 149
+  size: 99, 145
+  orig: 150, 150
+  offset: 30, 5
+  index: -1
+smoke3
+  rotate: false
+  xy: 935, 368
+  size: 84, 137
+  orig: 150, 150
+  offset: 37, 4
+  index: -1
+smoke4
+  rotate: false
+  xy: 841, 219
+  size: 89, 142
+  orig: 150, 150
+  offset: 36, 5
+  index: -1
+smoke5
+  rotate: false
+  xy: 558, 348
+  size: 96, 101
+  orig: 150, 150
+  offset: 21, 4
+  index: -1
+smoke6
+  rotate: false
+  xy: 844, 362
+  size: 90, 143
+  orig: 150, 150
+  offset: 35, 4
+  index: -1
+smoke7
+  rotate: false
+  xy: 206, 5
+  size: 76, 142
+  orig: 150, 150
+  offset: 43, 4
+  index: -1
+smoke8
+  rotate: false
+  xy: 655, 305
+  size: 95, 144
+  orig: 150, 150
+  offset: 28, 4
   index: -1
 start-down
   rotate: false
-  xy: 1, 227
+  xy: 363, 450
   size: 194, 55
   orig: 199, 67
   offset: 1, 6
   index: -1
 start-over
   rotate: false
-  xy: 257, 438
+  xy: 363, 394
   size: 194, 55
   orig: 199, 67
   offset: 1, 6
   index: -1
 start-up
   rotate: false
-  xy: 1, 171
+  xy: 558, 450
   size: 194, 55
   orig: 199, 67
   offset: 1, 6
   index: -1
 title
   rotate: false
-  xy: 1, 283
+  xy: 1, 295
   size: 255, 210
   orig: 256, 256
   offset: 0, 46
   index: -1
 urine
   rotate: false
-  xy: 1, 1
+  xy: 451, 32
   size: 59, 26
   orig: 70, 70
   offset: 5, 23
   index: -1
 vodka
   rotate: false
-  xy: 867, 402
+  xy: 530, 49
   size: 60, 91
   orig: 100, 100
   offset: 20, 6
   index: -1
 vodka0
   rotate: false
-  xy: 742, 384
+  xy: 469, 153
   size: 64, 109
   orig: 128, 128
   offset: 28, 0

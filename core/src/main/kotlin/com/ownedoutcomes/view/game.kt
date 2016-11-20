@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
@@ -26,12 +27,15 @@ import com.ownedoutcomes.Main
 import com.ownedoutcomes.view.entity.*
 import ktx.actors.alpha
 import ktx.actors.onChange
+import ktx.actors.onClick
 import ktx.actors.then
 import ktx.assets.asset
 import ktx.assets.getValue
 import ktx.assets.loadOnDemand
 import ktx.inject.inject
 import ktx.math.vec2
+import ktx.vis.KFloatingGroup
+import ktx.vis.floatingGroup
 import ktx.vis.table
 import ktx.vis.window
 import java.util.*
@@ -51,6 +55,7 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     lateinit var vodkaImage: Image
     lateinit var smokeImage: Image
     lateinit var pointsLabel: Label
+    private var firstShow = true
 
     init {
         light.isXray = true
@@ -107,9 +112,12 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
 
     override fun render(delta: Float) {
         sortActors()
+        super.render(delta)
+        if (firstShow) {
+            return
+        }
         updateHand()
         spawner.update(delta)
-        super.render(delta)
         stage.screenToStageCoordinates(lightPosition.set(Gdx.input.x.toFloat(), Gdx.input.y.toFloat()));
         light.position = lightPosition
         light.update()
@@ -123,13 +131,50 @@ class Game(stage: Stage, skin: Skin, val batch: Batch) : AbstractView(stage) {
     }
 
     override fun show() {
-        // TODO Tutorial on first show!
+        if (firstShow) {
+            showTutorial()
+        }
         super.show()
         rayHandler.setAmbientLight(0f, 0f, 0f, 0.1f)
         stage.addActor(handImage)
         spawner.reset()
         dragController.reset()
         stage.addActor(promptLabel)
+    }
+
+    private fun showTutorial() {
+        val tutorial = floatingGroup {
+            table {
+                this.touchable = Touchable.enabled
+                width = 800f
+                height = 600f
+            }
+            addTutorialLabel("To Ty: służebnica\nprawa i obyczajów. >", x = 60f, y = 460f)
+            addTutorialLabel("Tylu degeneratów >\nzostało ukaranych.", x = 70f, y = 300f)
+            addTutorialLabel("< Tędy chadzają ludzie. >", x = 250f, y = 80f)
+            addTutorialLabel("Uważaj na prawych obywateli, a karaj hultajów. Powodzenia!", x = 80f, y = 10f)
+            addTutorialLabel("                         >\nTutaj zgłaszamy złoczyńców,\nprzeciągając ich\nna ikony zgodne\nz przewinieniami.",
+                    x = 410f, y = 210f)
+            touchable = Touchable.enabled
+            onClick { event, group ->
+                firstShow = false
+                this.remove()
+            }
+        }
+        stage.addActor(tutorial)
+    }
+
+    private fun KFloatingGroup.addTutorialLabel(text: String, x: Float, y: Float) {
+        this.label(text, styleName = "title") {
+            color = Color.BLACK
+            this.y = y - 2f
+            this.x = x + 2f
+        }
+        this.label(text, styleName = "title") {
+            color = Color.CORAL
+            this.y = y
+            this.x = x
+        }
     }
 
     private fun sortActors() {
@@ -206,13 +251,14 @@ class Spawner(val stage: Stage, val dragController: DragController) {
 
 class DragController(val game: Game, val stage: Stage) {
     var currentSound: Sound? = null
-    var lives = 1
-    var points = 9
+    var lives = 3
+    var points = 0
 
     fun reset() {
         lives = 1
-        points = 9
+        points = 0
         game.pointsLabel.setText("0")
+        // TODO Random events: glasses, batteries, other grannies
     }
 
     fun getDraggable(): Draggable {
@@ -249,16 +295,20 @@ class DragController(val game: Game, val stage: Stage) {
 
     fun incrementPoints() {
         lives++
-        if (lives > 5) {
-            lives = 5
+        if (lives > 3) {
+            lives = 3
         }
         points++
+        updatePointsLabel()
+        displayPrompt(randomCaughtPrompt(), negative = false)
+    }
+
+    private fun updatePointsLabel() {
         game.pointsLabel.setText(points.toString())
         game.pointsLabel.addAction(Actions.sequence(
                 Actions.moveBy(0f, 5f, 0.1f),
                 Actions.moveBy(0f, -5f, 0.1f)
         ))
-        displayPrompt(randomCaughtPrompt(), negative = false)
     }
 
     private fun displayPrompt(prompt: Prompt, negative: Boolean = true) {

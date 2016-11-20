@@ -70,7 +70,7 @@ abstract class Pedestrian(val drawableName: String, val dragController: DragCont
                 Actions.rotateBy(-40f, 0.4f),
                 Actions.rotateBy(20f, 0.2f)
         )))
-        addAction(Actions.moveTo(targetX, randomY(), MathUtils.random(3f, 6f)) then Actions.run {
+        addAction(Actions.moveTo(targetX, randomY(), MathUtils.random(3.6f, 6f)) then Actions.run {
             if (type != PedestrianType.REGULAR) {
                 dragController.decrementPoints(run = true)
             }
@@ -79,13 +79,13 @@ abstract class Pedestrian(val drawableName: String, val dragController: DragCont
 }
 
 class GoodCitizen(dragController: DragController) :
-        Pedestrian((0..7).map { "regular$it" }.toGdxArray().random(), dragController) {
+        Pedestrian((0..8).map { "regular$it" }.toGdxArray().random(), dragController) {
     override val type: PedestrianType
         get() = PedestrianType.REGULAR
 }
 
 class Pisser(dragController: DragController) :
-        Pedestrian((0..7).map { "regular$it" }.toGdxArray().random(), dragController) {
+        Pedestrian((0..8).map { "regular$it" }.toGdxArray().random(), dragController) {
     override val type: PedestrianType
         get() = PedestrianType.URINE
 
@@ -137,7 +137,7 @@ class Pisser(dragController: DragController) :
 class Urine : VisImage("urine")
 
 class BeerDrinker(dragController: DragController) :
-        Pedestrian((0..0).map { "beer$it" }.toGdxArray().random(), dragController) {
+        Pedestrian((0..3).map { "beer$it" }.toGdxArray().random(), dragController) {
     override val type: PedestrianType
         get() = PedestrianType.BEER
 }
@@ -149,7 +149,7 @@ class VodkaDrinker(dragController: DragController) :
 }
 
 class Smoker(dragController: DragController) :
-        Pedestrian((0..0).map { "smoke$it" }.toGdxArray().random(), dragController) {
+        Pedestrian((0..8).map { "smoke$it" }.toGdxArray().random(), dragController) {
     override val type: PedestrianType
         get() = PedestrianType.SMOKE
 }
