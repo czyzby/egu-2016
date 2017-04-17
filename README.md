@@ -1,8 +1,24 @@
-# egu2016
+# East Games United game jam
 
-A [LibGDX](http://libgdx.badlogicgames.com/) project generated with [gdx-setup](https://github.com/czyzby/gdx-setup).
+#### Do not let the partygoers disturb your sleep!
 
-Project template included simple launchers and an empty `ApplicationAdapter` extension.
+Spy on your neighbors. Report any wrongdoings. Drag and drop criminals to the correct category to make them pay for their crimes!
+
+![Menu](.github/sledzing0.png)
+![Game](.github/sledzing1.png)
+![Tutorial](.github/sledzing2.png)
+
+**Note**: all texts and sounds in the game are in Polish. Still, the game is pretty simple and should be easy enough to follow.
+
+### About
+
+Created in under 30 hours using [KTX](https://github.com/czyzby/ktx) during the [East Games United](https://www.facebook.com/EastGamesUnited/) game jam by a Java backend developer and a cute graphics designer. The jam's topic was _"śledź"_ (_"herring"_ or _"to spy"_) and this _one_ of the games that we came up. The other one is [here](https://github.com/czyzby/egu2016). Since "śledź" also stands for "to spy" in Polish, we went for a game were you are a grandpa _spying_ on people.
+
+- Coding: [@czyzby](https://github.com/czyzby)
+- Idea, sounds: [@grafiszti](https://github.com/grafiszti)
+- Graphics: [@marsza](https://github.com/marszaa)
+
+**Note**: we were desperate and sleep deprived. This ain't your Uncle Bob coding exercise. Don't judge me by this code.
 
 ## Gradle
 
